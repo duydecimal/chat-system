@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Chat System - Duy Huynh</title>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                //If user clicks "Send" button
+                $("#userA-send").click(function() {
+                    var userA = new ChatPanel("user-a","#userA-msg"); //Create new instance of ChatPanel
+                });
+              
+                $("#userB-send").click(function() {
+                    var userB = new ChatPanel("user-b","#userB-msg"); //Create new instance of ChatPanel
+                });
+
+                $("#userC-send").click(function() {
+                    var userC = new ChatPanel("user-c","#userC-msg"); //Create new instance of ChatPanel
+                });
+
+                //If user clicks "Disconnect" hyperlink
+                $("#userA-disconnect").click(function() {
+                    var logout1 = new Disconnect("user-a", "#userA-session", "#userA-disconnect", "#userA-connect"); //Disconnect user from chat
+                });
+
+                $("#userB-disconnect").click(function() {
+                    var logout2 = new Disconnect("user-b", "#userB-session","#userB-disconnect", "#userB-connect"); //Disconnect user from chat
+                });
+
+                $("#userC-disconnect").click(function() {
+                    var logout3 = new Disconnect("user-c", "#userC-session", "#userC-disconnect", "#userC-connect"); //Disconnect user from chat
+                });
+
+                //If user clicks "Connect" hyperlink
+                $("#userA-connect").click(function() {
+                    var login1 = new Connect("user-a", "#userA-session", "#userA-connect", "#userA-disconnect"); //Reconnect user to chat
+                });
+
+                $("#userB-connect").click(function() {
+                    var login2 = new Connect("user-b", "#userB-session", "#userB-connect", "#userB-disconnect"); //Reconnect user to chat
+                });
+
+                $("#userC-connect").click(function() {
+                    var login3 = new Connect("user-c", "#userC-session", "#userC-connect", "#userC-disconnect"); //Reconnect user to chat
+                });
+            });
+
+            function ChatPanel(user, msg) { 
+                var user; 
+                var msg; 
+                var message = "<b>" + user + ": " + "</b>" + $(msg).val(); //Concatenate given user's name and textarea's value
+                $("p").append(message + "<br>"); //Append concatenated message to paragraph tag
+            }
+
+            function Disconnect(user, chat, disconnect, connect) {
+                var user;
+                var chat;
+                var disconnect;
+                var connect;
+                $(disconnect).hide(); //Hides given user's "Disconnect" link
+                $(connect).show(); //Shows given user's "Connect" link
+                $(chat).hide(); //Hides given user's chat (Disconnect user from chat)
+                $("p").append("<b>" + user + " " + "has disconnected" + "</b>" + "<br>"); //Append concatenated message to paragraph tag
+            }
+
+            function Connect(user, chat, connect, disconnect) {
+                var user;
+                var chat;
+                var connect; 
+                var disconnect; 
+                $(connect).hide(); //Hides given user's "Connect" link
+                $(disconnect).show(); //Shows given user's "Disconnect" link
+                $(chat).show(); //Shows given user's chat (Reconnect user to chat)
+                $("p").append("<b>" + user + " " + "has reconnected" + "</b>" + "<br>"); //Append concatenated message to paragraph
+            }
+        </script>
+        <style>
+            .panel {
+                border: 1px solid #000000;
+                height: auto;
+                width: 450px;
+                margin: 0 auto;
+                margin-bottom: 25px;
+                padding: 10px;
+                overflow: auto;
+            }
+
+            .chat {
+                background: #F0F8FF;
+            }
+
+            .disconnect {
+                float: right;
+            }
+
+            .connect {
+                display: none; /* Hides "Connect" hyperlink by default */
+                float: right; 
+            }
+
+            hr {
+                margin-top: 20px;
+                border-top: 1px solid #DCDCDC;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="userA-panel" class="panel">
+            <h2>User A</h2>
+
+            <a id="userA-disconnect" class="disconnect" href="#">Disconnect</a>
+            <a id="userA-connect" class="connect" href="#">Connect</a>
+
+            <div id="userA-session">
+                <div id="userA-submit">
+                    <textarea id="userA-msg" rows="2" cols="34"></textarea>
+                    <button id="userA-send">Send</button>
+                </div>
+
+                <div id="userA-chat" class="chat"><hr>
+                    <p></p>
+                </div>  
+            </div>
+        </div>
+
+        <div id="userB-panel" class="panel">
+            <h2>User B</h2>
+
+            <a id="userB-disconnect" class="disconnect" href="#">Disconnect</a>
+            <a id="userB-connect" class="connect" href="#">Connect</a>
+
+            <div id="userB-session">
+                <div id="userB-submit">
+                    <textarea id="userB-msg" rows="2" cols="34"></textarea>
+                    <button id="userB-send">Send</button>
+                </div>
+
+                <div id="userB-chat" class="chat"><hr> 
+                    <p></p>
+                </div>  
+            </div>
+        </div>
+
+        <div id="userC-panel" class="panel">
+            <h2>User C</h2>
+
+            <a id="userC-disconnect" class="disconnect" href="#">Disconnect</a>
+            <a id="userC-connect" class="connect" href="#">Connect</a>
+
+            <div id="userC-session">
+                <div id="userC-submit">
+                    <textarea id="userC-msg" rows="2" cols="34"></textarea>
+                    <button id="userC-send">Send</button>
+                </div>
+
+                <div id="userC-chat" class="chat"><hr> 
+                    <p></p>
+                </div>  
+            </div>
+        </div>
+    </body>
+</html>
